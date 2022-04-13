@@ -16,30 +16,25 @@ public class Conta
             throw new ArgumentException("Não há saldo suficiente para esse saque");
         }
 
-        if(valor <= 0.0)
-        {
-            throw new ArgumentException("Só é possível sacar valores maiores do que zero");
-        }
+        ValidarValor(valor);
         Saldo = Saldo - valor;
     }
 
     public void Depositar(double valor)
     {
-        if(valor <= 0.0){
-            throw new ArgumentException("Só é possível depositar valores maiores que 0");
-        }
-
+        ValidarValor(valor);
         Saldo = Saldo + valor;
     }
 
     public void Transferir(double valor, Conta conta)
     {
-        if (valor <= 0.0)
-        {
-            throw new ArgumentException("O valor tem que ser maior que zero");
-        }
-
-        this.Sacar(valor);
+        Sacar(valor);
         conta.Depositar(valor);
+    }
+
+    private void ValidarValor(double valor)
+    {
+        if (valor <= 0.0)
+        throw new ArgumentException("O valor tem que ser maior que zero");
     }
 }
